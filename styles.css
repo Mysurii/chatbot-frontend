@@ -34,6 +34,7 @@
     min-width: 50px;
     border-radius: 5px;
     background: lightgray;
+    border: 2px solid transparent;
     width: fit-content;
     padding: 10px;
 }
@@ -41,6 +42,7 @@
     min-width: 50px;
     border-radius: 5px;
     background: #5A5EB9;
+    border: 2px solid transparent;
     color: #fff;
     width: fit-content;
     padding: 10px;

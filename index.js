@@ -1,3 +1,18 @@
+const chatbotName = document.currentScript.getAttribute("name");
+const primaryColor = document.currentScript.getAttribute("primary");
+const bg = document.currentScript.getAttribute("bg");
+const selfBubbleColor = document.currentScript.getAttribute("selfBubble");
+const botBubble = document.currentScript.getAttribute("botBubble");
+const selfBubbleBorderColor =
+  document.currentScript.getAttribute("selfBubbleBorder");
+const botBubbleBorderColor =
+  document.currentScript.getAttribute("botBubbleBorder");
+const closeColor = document.currentScript.getAttribute("close");
+const avatarURL = document.currentScript.getAttribute("avatar");
+
+const STANDARD_AVATAR_URL =
+  "https://images-platform.99static.com/jwnEu5C8vt1HATQ5ikjw_zxN3Lw=/0x1:1563x1564/500x500/top/smart/99designs-contests-attachments/95/95977/attachment_95977640";
+
 function createChatbotLayout() {
   // chat box
   const chatBox = document.createElement("div");
@@ -6,17 +21,20 @@ function createChatbotLayout() {
   //header
   const header = document.createElement("div");
   header.classList.add("chat-box-header");
+  header.style.background = bg;
+  header.style.color = primaryColor;
   const closeBtn = document.createElement("span");
   closeBtn.classList.add("chat-box-toggle");
+  closeBtn.style.color = closeColor || primaryColor;
 
   closeBtn.addEventListener("click", () => {
     avatar.style.opacity = 1;
     chatBox.style.opacity = 0;
   });
-
-  const chatbotName = document.createElement("span");
-  chatbotName.innerText = "Chatbot";
-  header.appendChild(chatbotName);
+  console.log(chatbotName);
+  const chatbotNameSpan = document.createElement("span");
+  chatbotNameSpan.innerHTML = chatbotName || "Chatbot";
+  header.appendChild(chatbotNameSpan);
   header.appendChild(closeBtn);
 
   //body
@@ -43,18 +61,17 @@ function createChatbotLayout() {
   sendButton.classList.add("chat-submit");
 
   sendButton.addEventListener("click", async (e) => {
-    console.log("BTN CLICKED!");
+    const message = inputField.value;
+
     e.preventDefault();
-    if (inputField.value === "") return;
-
-    createMessage(inputField.value);
-
+    if (message === "") return;
+    createMessage(message);
     inputField.value = "";
     scrollBottom();
     inputField.focus();
 
-    const response = await getResponse(inputField.value);
-    console.log(response);
+    const response = await getResponse(message);
+
     if (response.status == "success")
       setTimeout(() => {
         createMessage(response.message, true);
@@ -73,8 +90,7 @@ function createChatbotLayout() {
   const avatar = document.createElement("div");
   avatar.classList.add("chatbot__avatar");
   const avatarImg = document.createElement("img");
-  avatarImg.src =
-    "https://static.vecteezy.com/ti/gratis-vector/t1/2275847-male-avatar-profile-icon-of-smiling-blanke-man-vector.jpg";
+  avatarImg.src = avatarURL || STANDARD_AVATAR_URL;
   avatarImg.classList.add("chatbot__avatar__image");
   avatar.appendChild(avatarImg);
 
@@ -102,6 +118,10 @@ function createChatbotLayout() {
       : "chatbot__message__self";
     const messageSpan = document.createElement("span");
     messageSpan.classList.add(messageSpanClass);
+    messageSpan.style.background = is_bot ? botBubble : selfBubbleColor;
+    messageSpan.style.borderColor = is_bot
+      ? botBubbleBorderColor
+      : selfBubbleBorderColor;
     messageSpan.innerText = message;
 
     const timeSpan = document.createElement("span");
@@ -116,8 +136,9 @@ function createChatbotLayout() {
 }
 
 async function getResponse(message) {
+  console.log(chatbotName);
   const response = await fetch(
-    "http://localhost:5000/api/chatbot/response/v-assistance",
+    `http://localhost:5000/api/chatbot/response/${chatbotName}`,
     {
       method: "POST",
       headers: {
