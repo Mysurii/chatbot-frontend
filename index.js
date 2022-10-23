@@ -6,6 +6,7 @@ const botBubble = document.currentScript.getAttribute("data-botBubble");
 const selfBubbleBorderColor = document.currentScript.getAttribute(
   "data-selfBubbleBorder"
 );
+const avatarBorder = document.currentScript.getAttribute("data-avatarBorder");
 const botBubbleBorderColor = document.currentScript.getAttribute(
   "data-botBubbleBorder"
 );
@@ -89,6 +90,7 @@ function createChatbotLayout() {
   chatBox.appendChild(form);
 
   const avatar = document.createElement("div");
+  avatar.style.borderColor = avatarBorder;
   avatar.classList.add("chatbot__avatar");
   const avatarImg = document.createElement("img");
   avatarImg.src = avatarURL || STANDARD_AVATAR_URL;
@@ -162,6 +164,6 @@ async function getResponse(message) {
 }
 
 requestStylesheet(
-  "https://cdn.jsdelivr.net/gh/mysurii/chatbot-frontend@vv13/styles.css"
+  "https://cdn.jsdelivr.net/gh/mysurii/chatbot-frontend@vv15/styles.css"
 );
 createChatbotLayout();
