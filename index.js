@@ -1,10 +1,10 @@
-const submitBtn = document.getElementById("chat-submit");
+const sendBtn = document.getElementById("chat-submit");
 const messageList = document.getElementById("chat-logs");
 const input = document.getElementById("chat-input");
 
 console.log("HELLO FROM INDEXJS");
 
-submitBtn.addEventListener("click", async (e) => {
+sendBtn.addEventListener("click", async (e) => {
   e.preventDefault();
   if (input.value === "") return;
 
