@@ -31,7 +31,6 @@ function createChatbotLayout() {
     avatar.style.opacity = 1;
     chatBox.style.opacity = 0;
   });
-  console.log(chatbotName);
   const chatbotNameSpan = document.createElement("span");
   chatbotNameSpan.innerHTML = chatbotName || "Chatbot";
   header.appendChild(chatbotNameSpan);
@@ -145,7 +144,6 @@ function requestStylesheet(stylesheet_url) {
 }
 
 async function getResponse(message) {
-  console.log(chatbotName);
   const response = await fetch(
     `http://localhost:5000/api/chatbot/response/${chatbotName}`,
     {
