@@ -117,7 +117,7 @@ function createChatbotLayout() {
 
 async function getResponse(message) {
   const response = await fetch(
-    "http://localhost:5000/api/chatbot/response/testing",
+    "http://localhost:5000/api/chatbot/response/v-assistance",
     {
       method: "POST",
       headers: {
