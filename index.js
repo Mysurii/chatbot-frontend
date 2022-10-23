@@ -63,9 +63,9 @@ function createChatbotLayout() {
   sendButton.classList.add("chat-submit");
 
   sendButton.addEventListener("click", async (e) => {
-    const message = inputField.value;
-
     e.preventDefault();
+
+    const message = inputField.value;
     if (message === "") return;
     createMessage(message);
     inputField.value = "";
