@@ -65,7 +65,7 @@
     -webkit-box-align: center;
     align-items: center;
     justify-content: space-around;
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     height: 60px;
     width: 100%;
@@ -147,7 +147,7 @@
   bottom: 0;
   right: 0;
   height:100%;
-  position: absolute;
+  position: fixed;
   z-index: -1;   
 }
 
@@ -219,7 +219,7 @@
 }
 
 .chatbot__avatar {
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   right: 20px;
   width: 60px;
