@@ -107,7 +107,7 @@ function createChatbotLayout() {
       behavior: "smooth",
     });
 
-  const createMessage = (message, is_bot = false) => {
+  function createMessage(message, is_bot = false) {
     const container = document.createElement("div");
     if (!is_bot) container.classList.add("chatbot__self");
     container.classList.add("chatbot__message__container");
