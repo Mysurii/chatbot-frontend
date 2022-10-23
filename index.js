@@ -1,7 +1,3 @@
-// const sendBtn = document.getElementById("chat-submit");
-// const messageList = document.getElementById("chat-logs");
-// const input = document.getElementById("chat-input");
-
 function createChatbotLayout() {
   // chat box
   const chatBox = document.createElement("div");
@@ -29,6 +25,7 @@ function createChatbotLayout() {
   );
 
   // Input
+  const form = document.createElement("form");
   const inputContainer = document.createElement("div");
   inputContainer.classList.add("chatbot__input__container");
   const inputField = document.createElement("input");
@@ -36,7 +33,7 @@ function createChatbotLayout() {
   inputField.placeholder = "Type message..";
 
   const sendButton = document.createElement("button");
-  sendButton.type = "button";
+  sendButton.type = "submit";
   sendButton.innerText = "Send";
   sendButton.classList.add("chat-submit");
 
@@ -49,6 +46,7 @@ function createChatbotLayout() {
 
     inputField.value = "";
     scrollBottom();
+    inputField.focus();
 
     const response = await getResponse(inputField.value);
     console.log(response);
@@ -61,10 +59,11 @@ function createChatbotLayout() {
 
   inputContainer.appendChild(inputField);
   inputContainer.appendChild(sendButton);
+  form.appendChild(inputContainer);
 
   chatBox.appendChild(header);
   chatBox.appendChild(chatLogs);
-  chatBox.appendChild(inputContainer);
+  chatBox.appendChild(form);
 
   document.body.appendChild(chatBox);
 
