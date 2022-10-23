@@ -144,6 +144,12 @@
   user-select: none;
   transition: transform .3s ease;
 }
+.chat-box-toggle::before {
+  content: "\00d7";
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: transform .3s ease;
+}
 .chat-box-toggle:hover {
   transform: scale(1.05);
 }

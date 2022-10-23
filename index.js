@@ -1,49 +1,102 @@
-const sendBtn = document.getElementById("chat-submit");
-const messageList = document.getElementById("chat-logs");
-const input = document.getElementById("chat-input");
+// const sendBtn = document.getElementById("chat-submit");
+// const messageList = document.getElementById("chat-logs");
+// const input = document.getElementById("chat-input");
+
+function createChatbotLayout() {
+  // chat box
+  const chatBox = document.createElement("div");
+  chatBox.id = "chat-box";
+
+  //header
+  const header = document.createElement("div");
+  header.classList.add("chat-box-header");
+  const closeBtn = document.createElement("span");
+  closeBtn.classList.add("chat-box-toggle");
+
+  const chatbotName = document.createElement("span");
+  chatbotName.innerText = "Chatbot";
+  header.appendChild(chatbotName);
+  header.appendChild(closeBtn);
+
+  //body
+  const chatLogs = document.createElement("div");
+  chatLogs.classList.add("chat-logs");
+
+  // Start message
+  createMessage(
+    "Hello, I am the virtual assistant of this website. How can I help you?",
+    true
+  );
+
+  // Input
+  const inputContainer = document.createElement("div");
+  inputContainer.classList.add("chatbot__input__container");
+  const inputField = document.createElement("input");
+  inputField.classList.add("chatbot__input");
+
+  const sendButton = document.createElement("button");
+  sendButton.type = "button";
+  sendButton.innerText = "Send";
+  sendButton.classList.add("chat-submit");
+
+  sendButton.addEventListener("click", async (e) => {
+    console.log("BTN CLICKED!");
+    e.preventDefault();
+    if (inputField.value === "") return;
+
+    createMessage(inputField.value);
+
+    inputField.value = "";
+    scrollBottom();
+
+    const response = await getResponse(inputField.value);
+    console.log(response);
+    if (response.status == "success")
+      setTimeout(() => {
+        createMessage(response.message, true);
+        scrollBottom();
+      }, 500);
+  });
+
+  inputContainer.appendChild(inputField);
+  inputContainer.appendChild(sendButton);
+
+  chatBox.appendChild(header);
+  chatBox.appendChild(chatLogs);
+  chatBox.appendChild(inputContainer);
+
+  document.body.appendChild(chatBox);
+
+  const scrollBottom = () =>
+    chatLogs.scrollTo({
+      top: chatLogs.scrollHeight,
+      behavior: "smooth",
+    });
+
+  function createMessage(message, is_bot = false) {
+    const container = document.createElement("div");
+    if (!is_bot) container.classList.add("chatbot__self");
+    container.classList.add("chatbot__message__container");
+
+    const messageSpanClass = is_bot
+      ? "chatbot__message__bot"
+      : "chatbot__message__self";
+    const messageSpan = document.createElement("span");
+    messageSpan.classList.add(messageSpanClass);
+    messageSpan.innerText = message;
+
+    const timeSpan = document.createElement("span");
+    const now = new Date();
+    timeSpan.innerText = `${now.getHours()}:${now.getMinutes()}`;
+    timeSpan.classList.add("chatbot__send__time");
+
+    container.appendChild(messageSpan);
+    container.appendChild(timeSpan);
+    chatLogs.appendChild(container);
+  }
+}
 
 console.log("HELLO FROM INDEXJS@!#FSDF");
-
-sendBtn.addEventListener("click", async (e) => {
-  alert("YOW!");
-  e.preventDefault();
-  if (input.value === "") return;
-
-  createMessage(input.value);
-
-  input.value = "";
-  scrollBottom();
-
-  const response = await getResponse(input.value);
-  console.log(response);
-  if (response.status == "success")
-    setTimeout(() => {
-      createMessage(response.message, true);
-      scrollBottom();
-    }, 500);
-});
-
-function createMessage(message, is_bot = false) {
-  const container = document.createElement("div");
-  if (!is_bot) container.classList.add("chatbot__self");
-  container.classList.add("chatbot__message__container");
-
-  const messageSpanClass = is_bot
-    ? "chatbot__message__bot"
-    : "chatbot__message__self";
-  const messageSpan = document.createElement("span");
-  messageSpan.classList.add(messageSpanClass);
-  messageSpan.innerText = message;
-
-  const timeSpan = document.createElement("span");
-  const now = new Date();
-  timeSpan.innerText = `${now.getHours()}:${now.getMinutes()}`;
-  timeSpan.classList.add("chatbot__send__time");
-
-  container.appendChild(messageSpan);
-  container.appendChild(timeSpan);
-  messageList.appendChild(container);
-}
 
 async function getResponse(message) {
   const response = await fetch(
@@ -61,8 +114,4 @@ async function getResponse(message) {
   return res;
 }
 
-const scrollBottom = () =>
-  messageList.scrollTo({
-    top: messageList.scrollHeight,
-    behavior: "smooth",
-  });
+createChatbotLayout();
