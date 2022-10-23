@@ -2,9 +2,10 @@ const sendBtn = document.getElementById("chat-submit");
 const messageList = document.getElementById("chat-logs");
 const input = document.getElementById("chat-input");
 
-console.log("HELLO FROM INDEXJS");
+console.log("HELLO FROM INDEXJS@!#FSDF");
 
 sendBtn.addEventListener("click", async (e) => {
+  alert("YOW!");
   e.preventDefault();
   if (input.value === "") return;
 
