@@ -108,7 +108,7 @@ function createChatbotLayout() {
       behavior: "smooth",
     });
 
-  function createMessage(message, is_bot = false) {
+  const createMessage = (message, is_bot = false) => {
     const container = document.createElement("div");
     if (!is_bot) container.classList.add("chatbot__self");
     container.classList.add("chatbot__message__container");
@@ -132,7 +132,16 @@ function createChatbotLayout() {
     container.appendChild(messageSpan);
     container.appendChild(timeSpan);
     chatLogs.appendChild(container);
-  }
+  };
+}
+
+function requestStylesheet(stylesheet_url) {
+  stylesheet = document.createElement("link");
+  stylesheet.rel = "stylesheet";
+  stylesheet.type = "text/css";
+  stylesheet.href = stylesheet_url;
+  stylesheet.media = "all";
+  document.lastChild.firstChild.appendChild(stylesheet);
 }
 
 async function getResponse(message) {
@@ -152,4 +161,7 @@ async function getResponse(message) {
   return res;
 }
 
+requestStylesheet(
+  "https://cdn.jsdelivr.net/gh/mysurii/chatbot-frontend@vv9/styles.css"
+);
 createChatbotLayout();
