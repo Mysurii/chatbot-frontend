@@ -2,7 +2,7 @@ const sendBtn = document.getElementById("chat-submit");
 const messageList = document.getElementById("chat-logs");
 const input = document.getElementById("chat-input");
 
-console.log("HELLO FROM INDEXJS");
+console.log("HELLO FROM INDEXJS!");
 
 sendBtn.addEventListener("click", async (e) => {
   e.preventDefault();
