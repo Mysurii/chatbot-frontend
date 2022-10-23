@@ -1,14 +1,16 @@
-const chatbotName = document.currentScript.getAttribute("name");
-const primaryColor = document.currentScript.getAttribute("primary");
-const bg = document.currentScript.getAttribute("bg");
-const selfBubbleColor = document.currentScript.getAttribute("selfBubble");
-const botBubble = document.currentScript.getAttribute("botBubble");
-const selfBubbleBorderColor =
-  document.currentScript.getAttribute("selfBubbleBorder");
-const botBubbleBorderColor =
-  document.currentScript.getAttribute("botBubbleBorder");
-const closeColor = document.currentScript.getAttribute("close");
-const avatarURL = document.currentScript.getAttribute("avatar");
+const chatbotName = document.currentScript.getAttribute("data-name");
+const primaryColor = document.currentScript.getAttribute("data-primary");
+const bg = document.currentScript.getAttribute("data-bg");
+const selfBubbleColor = document.currentScript.getAttribute("data-selfBubble");
+const botBubble = document.currentScript.getAttribute("data-botBubble");
+const selfBubbleBorderColor = document.currentScript.getAttribute(
+  "data-selfBubbleBorder"
+);
+const botBubbleBorderColor = document.currentScript.getAttribute(
+  "data-botBubbleBorder"
+);
+const closeColor = document.currentScript.getAttribute("data-close");
+const avatarURL = document.currentScript.getAttribute("data-avatar");
 
 const STANDARD_AVATAR_URL =
   "https://images-platform.99static.com/jwnEu5C8vt1HATQ5ikjw_zxN3Lw=/0x1:1563x1564/500x500/top/smart/99designs-contests-attachments/95/95977/attachment_95977640";
@@ -131,7 +133,7 @@ function createChatbotLayout() {
     container.appendChild(messageSpan);
     container.appendChild(timeSpan);
     chatLogs.appendChild(container);
-  };
+  }
 }
 
 function requestStylesheet(stylesheet_url) {
