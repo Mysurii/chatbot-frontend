@@ -9,6 +9,11 @@ function createChatbotLayout() {
   const closeBtn = document.createElement("span");
   closeBtn.classList.add("chat-box-toggle");
 
+  closeBtn.addEventListener("click", () => {
+    avatar.style.opacity = 1;
+    chatBox.style.opacity = 0;
+  });
+
   const chatbotName = document.createElement("span");
   chatbotName.innerText = "Chatbot";
   header.appendChild(chatbotName);
@@ -65,7 +70,21 @@ function createChatbotLayout() {
   chatBox.appendChild(chatLogs);
   chatBox.appendChild(form);
 
+  const avatar = document.createElement("div");
+  avatar.classList.add("chatbot__avatar");
+  const avatarImg = document.createElement("img");
+  avatarImg.src =
+    "https://static.vecteezy.com/ti/gratis-vector/t1/2275847-male-avatar-profile-icon-of-smiling-blanke-man-vector.jpg";
+  avatarImg.classList.add("chatbot__avatar__image");
+  avatar.appendChild(avatarImg);
+
+  avatarImg.addEventListener("click", () => {
+    avatar.style.opacity = 0;
+    chatBox.style.opacity = 1;
+  });
+
   document.body.appendChild(chatBox);
+  document.body.appendChild(avatar);
 
   const scrollBottom = () =>
     chatLogs.scrollTo({

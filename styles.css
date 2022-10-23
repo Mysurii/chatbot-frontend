@@ -96,6 +96,9 @@
   max-height:100vh;
   border-radius:5px;  
   box-shadow: rgb(204 204 204) 0px 0px 3px;
+  z-index: 999;
+  opacity: 0;
+
 }
 .chat-box-toggle {
   float:right;
@@ -167,12 +170,19 @@
   border-radius:50%;
   color:#5A5EB9;
   width:35px;
-  height:35px;  
+  height:35px;
+  transition: all .3s ease;  
+  cursor: pointer;
+}
+.chat-submit:hover {
+  transform: scale(1.1);
+  color:#5A5EB9;
 }
 .chat-logs {
   padding:20px; 
   height: calc(100% - 130px);
   overflow-y:scroll;
+  background-color: rgb(252, 252, 252);
 }
 
 .chat-logs::-webkit-scrollbar-track
@@ -197,4 +207,30 @@
   color: grey;
   font-size: .8rem;
   margin-top: 5px;
+}
+
+.show__chatbot {
+  opacity: 1;
+} 
+.hide__chatbot {
+  opacity: 0;
+}
+
+.chatbot__avatar {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border: 3px solid #5A5EB9;
+  border-radius: 50%;
+  z-index: 999;
+}
+
+.chatbot__avatar__image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
 }
