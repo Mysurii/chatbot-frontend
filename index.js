@@ -33,6 +33,7 @@ function createChatbotLayout() {
   inputContainer.classList.add("chatbot__input__container");
   const inputField = document.createElement("input");
   inputField.classList.add("chatbot__input");
+  inputField.placeholder = "Type message..";
 
   const sendButton = document.createElement("button");
   sendButton.type = "button";
@@ -95,8 +96,6 @@ function createChatbotLayout() {
     chatLogs.appendChild(container);
   }
 }
-
-console.log("HELLO FROM INDEXJS@!#FSDF");
 
 async function getResponse(message) {
   const response = await fetch(
