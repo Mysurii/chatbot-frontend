@@ -164,6 +164,6 @@ async function getResponse(message) {
 }
 
 requestStylesheet(
-  "https://cdn.jsdelivr.net/gh/mysurii/chatbot-frontend@vv15/styles.css"
+  "https://cdn.jsdelivr.net/gh/mysurii/chatbot-frontend@vv16/styles.css"
 );
 createChatbotLayout();
