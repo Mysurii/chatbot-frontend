@@ -23,6 +23,7 @@
 .chatbot__header__description {
   display: flex;
   align-items: center;
+  font-size: 1.3rem;
 }
 .chatbot__messageslist {
   padding: 20px 10px 10px 10px;
