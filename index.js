@@ -1,16 +1,12 @@
 const chatbotName = document.currentScript.getAttribute("data-name");
-const primaryColor = document.currentScript.getAttribute("data-primary");
-const bg = document.currentScript.getAttribute("data-bg");
-const selfBubbleColor = document.currentScript.getAttribute("data-selfBubble");
-const botBubble = document.currentScript.getAttribute("data-botBubble");
-const selfBubbleBorderColor = document.currentScript.getAttribute(
-  "data-selfBubbleBorder"
-);
-const avatarBorder = document.currentScript.getAttribute("data-avatarBorder");
-const botBubbleBorderColor = document.currentScript.getAttribute(
-  "data-botBubbleBorder"
-);
+const nameColor = document.currentScript.getAttribute("data-name-color");
 const closeColor = document.currentScript.getAttribute("data-close");
+const headerColor = document.currentScript.getAttribute('data-header')
+const selfBubbleColor = document.currentScript.getAttribute("data-bubble-user");
+const botBubble = document.currentScript.getAttribute("data-bubble_bot");
+const sendButtonColor = document.currentScript.getAttribute("data-send-button");
+const textUser = document.currentScript.getAttribute("data-text-user");
+const textBot = document.currentScript.getAttribute("data-text-bot");
 const avatarURL = document.currentScript.getAttribute("data-avatar");
 
 const STANDARD_AVATAR_URL =
@@ -19,40 +15,51 @@ const STANDARD_AVATAR_URL =
 function createChatbotLayout() {
   // chat box
   const chatBox = document.createElement("div");
+  chatBox.classList.add('chatbot__container')
   chatBox.id = "chat-box";
 
   //header
   const header = document.createElement("div");
-  header.classList.add("chat-box-header");
-  header.style.background = bg;
-  header.style.color = primaryColor;
-  const closeBtn = document.createElement("span");
-  closeBtn.classList.add("chat-box-toggle");
-  closeBtn.style.color = closeColor || primaryColor;
+  header.classList.add('chatbot__header')
+  
+  header.style.background = headerColor;
+
+  const closeBtn = document.createElement("div");
+  closeBtn.innerHTML =  '&#10006';
+  closeBtn.classList.add('chatbot__header__close')
+  closeBtn.style.color = closeColor;
 
   closeBtn.addEventListener("click", () => {
     avatar.style.opacity = 1;
     chatBox.style.opacity = 0;
   });
+
   const chatbotNameSpan = document.createElement("span");
+  chatbotNameSpan.classList.add('chatbot__header__description')
   chatbotNameSpan.innerHTML = chatbotName || "Chatbot";
+  chatbotNameSpan.style.color = nameColor;
+
   header.appendChild(chatbotNameSpan);
   header.appendChild(closeBtn);
 
   //body
+  const messagesListContainer = document.createElement("div");
+  messagesListContainer.classList.add('chatbot__messageslist__container');
+
   const chatLogs = document.createElement("div");
-  chatLogs.classList.add("chat-logs");
+  chatLogs.classList.add("chatbot__messageslist");
+
+  messagesListContainer.appendChild(chatLogs);
 
   // Start message
   createMessage(
     "Hello, I am the virtual assistant of this website. How can I help you?",
     true
   );
-
+  createMessage('Hello, I am the virtual assistant of this website. How can I help you?', false)
   // Input
-  const form = document.createElement("form");
-  const inputContainer = document.createElement("div");
-  inputContainer.classList.add("chatbot__input__container");
+  const inputContainer = document.createElement("form");
+  inputContainer.classList.add('chatbot__input__container')
   const inputField = document.createElement("input");
   inputField.classList.add("chatbot__input");
   inputField.placeholder = "Type message..";
@@ -60,7 +67,8 @@ function createChatbotLayout() {
   const sendButton = document.createElement("button");
   sendButton.type = "submit";
   sendButton.innerText = "Send";
-  sendButton.classList.add("chat-submit");
+  sendButton.classList.add('chatbot__send__button')
+  sendButton.style.color = closeColor;
 
   sendButton.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -83,18 +91,17 @@ function createChatbotLayout() {
 
   inputContainer.appendChild(inputField);
   inputContainer.appendChild(sendButton);
-  form.appendChild(inputContainer);
 
   chatBox.appendChild(header);
-  chatBox.appendChild(chatLogs);
-  chatBox.appendChild(form);
+  chatBox.appendChild(messagesListContainer);
+  chatBox.appendChild(inputContainer);
+
 
   const avatar = document.createElement("div");
-  avatar.style.borderColor = avatarBorder;
-  avatar.classList.add("chatbot__avatar");
+  avatar.classList.add("avatar__container");
   const avatarImg = document.createElement("img");
   avatarImg.src = avatarURL || STANDARD_AVATAR_URL;
-  avatarImg.classList.add("chatbot__avatar__image");
+  avatarImg.classList.add("chatbot__avatar");
   avatar.appendChild(avatarImg);
 
   avatarImg.addEventListener("click", () => {
@@ -113,38 +120,30 @@ function createChatbotLayout() {
 
   function createMessage(message, is_bot = false) {
     const container = document.createElement("div");
-    if (!is_bot) container.classList.add("chatbot__self");
-    container.classList.add("chatbot__message__container");
+    container.classList.add('chatbot__bubble__container')
+    container.style.justifyContent = is_bot ? "flex-start" : "flex-end";
 
-    const messageSpanClass = is_bot
-      ? "chatbot__message__bot"
-      : "chatbot__message__self";
-    const messageSpan = document.createElement("span");
-    messageSpan.classList.add(messageSpanClass);
-    messageSpan.style.background = is_bot ? botBubble : selfBubbleColor;
-    messageSpan.style.borderColor = is_bot
-      ? botBubbleBorderColor
-      : selfBubbleBorderColor;
-    messageSpan.innerText = message;
+    const textContainer = document.createElement("div");
+    textContainer.classList.add('chatbot__text__container')
 
-    const timeSpan = document.createElement("span");
-    const now = new Date();
-    timeSpan.innerText = `${now.getHours()}:${now.getMinutes()}`;
-    timeSpan.classList.add("chatbot__send__time");
+    const bubble = document.createElement("div");
+    bubble.classList.add(is_bot ? 'chatbot__bot__bubble' : "chatbot__self__bubble");
 
-    container.appendChild(messageSpan);
-    container.appendChild(timeSpan);
+    bubble.append(message);
+
+    const time = document.createElement("div");
+    time.classList.add('chatbot__time');
+    time.style.textAlign = is_bot ? "left" : "right";
+
+    const now = new Date()
+    now.innerText = `${now.getHours()}:${now.getMinutes()}`
+
+    textContainer.appendChild(bubble)
+    textContainer.appendChild(time);
+
+    container.appendChild(textContainer);
     chatLogs.appendChild(container);
   }
-}
-
-function requestStylesheet(stylesheet_url) {
-  stylesheet = document.createElement("link");
-  stylesheet.rel = "stylesheet";
-  stylesheet.type = "text/css";
-  stylesheet.href = stylesheet_url;
-  stylesheet.media = "all";
-  document.lastChild.firstChild.appendChild(stylesheet);
 }
 
 async function getResponse(message) {
@@ -163,7 +162,7 @@ async function getResponse(message) {
   return res;
 }
 
-requestStylesheet(
-  "https://cdn.jsdelivr.net/gh/mysurii/chatbot-frontend@vv16/styles.css"
-);
+// requestStylesheet(
+//   "https://cdn.jsdelivr.net/gh/mysurii/chatbot-frontend@vv16/styles.css"
+// );
 createChatbotLayout();
