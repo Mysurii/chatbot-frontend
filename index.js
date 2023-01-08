@@ -53,7 +53,7 @@ function createChatbotLayout() {
 
   // Start message
   createMessage('Hello, I am the virtual assistant of this website. How can I help you?', true)
-  createMessage('Hello, I am the virtual assistant of this website. How can I help you?', false)
+
   // Input
   const inputContainer = document.createElement('form')
   inputContainer.classList.add('chatbot__input__container')
@@ -129,7 +129,19 @@ function createChatbotLayout() {
     textContainer.classList.add('chatbot__text__container')
 
     const bubble = document.createElement('div')
-    bubble.classList.add(is_bot ? 'chatbot__bot__bubble' : 'chatbot__self__bubble')
+    if (is_bot) {
+      bubble.classList.add('chatbot__bot__bubble')
+      if (botBubble && textBot) {
+        bubble.style.background = botBubble
+        bubble.style.color = textBot
+      }
+    } else {
+      bubble.classList.add('chatbot__self__bubble')
+      if (selfBubbleColor && textUser) {
+        bubble.style.background = selfBubbleColor
+        bubble.style.color = textUser
+      }
+    }
 
     bubble.append(message)
 

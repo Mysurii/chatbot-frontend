@@ -81,6 +81,8 @@
   text-align: right;
 }
 .chatbot__avatar {
+  display: flex;
+  flex-direction: column;
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -90,7 +92,7 @@
   bottom: 10px;
   z-index: 999;
   cursor: pointer;
-
+  border: 2px solid black;
 }
 .chatbot__button {
   background-color: #ffffff;
@@ -115,6 +117,7 @@
 }
 .chatbot__avatar:hover {
   background-color: rgb(249, 250, 251);
+
 }
 .chatbot__avatar:focus {
  outline: 2px solid transparent;
