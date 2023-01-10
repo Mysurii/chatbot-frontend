@@ -1,16 +1,16 @@
-const chatbotName = document.currentScript.getAttribute("data-name");
-const nameColor = document.currentScript.getAttribute("data-name-color");
-const closeColor = document.currentScript.getAttribute("data-close");
+const token = document.currentScript.getAttribute('data-token')
+const chatbotName = document.currentScript.getAttribute('data-name')
+const nameColor = document.currentScript.getAttribute('data-name-color')
+const closeColor = document.currentScript.getAttribute('data-close')
 const headerColor = document.currentScript.getAttribute('data-header')
-const selfBubbleColor = document.currentScript.getAttribute("data-bubble-user");
+const selfBubbleColor = document.currentScript.getAttribute('data-bubble-user')
 const botBubble = document.currentScript.getAttribute('data-bubble-bot')
-const sendButtonColor = document.currentScript.getAttribute("data-send-button");
-const textUser = document.currentScript.getAttribute("data-text-user");
-const textBot = document.currentScript.getAttribute("data-text-bot");
-const avatarURL = document.currentScript.getAttribute("data-avatar");
+const sendButtonColor = document.currentScript.getAttribute('data-send-button')
+const textUser = document.currentScript.getAttribute('data-text-user')
+const textBot = document.currentScript.getAttribute('data-text-bot')
+const avatarURL = document.currentScript.getAttribute('data-avatar')
 
-const STANDARD_AVATAR_URL =
-  "https://images-platform.99static.com/jwnEu5C8vt1HATQ5ikjw_zxN3Lw=/0x1:1563x1564/500x500/top/smart/99designs-contests-attachments/95/95977/attachment_95977640";
+const STANDARD_AVATAR_URL = 'https://images-platform.99static.com/jwnEu5C8vt1HATQ5ikjw_zxN3Lw=/0x1:1563x1564/500x500/top/smart/99designs-contests-attachments/95/95977/attachment_95977640'
 
 function createChatbotLayout() {
   // chat box
@@ -161,10 +161,11 @@ function createChatbotLayout() {
 }
 
 async function getResponse(message) {
-  const response = await fetch(`http://localhost:8080/api/chatbot/response/${chatbotName}`, {
+  const response = await fetch(`http://localhost:8080/api/chatbots/response`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: token,
     },
     body: JSON.stringify({ message }),
   })
@@ -176,4 +177,5 @@ async function getResponse(message) {
 // requestStylesheet(
 //   "https://cdn.jsdelivr.net/gh/mysurii/chatbot-frontend@vv16/styles.css"
 // );
-createChatbotLayout();
+
+if (token) createChatbotLayout()
