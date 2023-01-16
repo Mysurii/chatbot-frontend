@@ -83,7 +83,7 @@ function createChatbotLayout() {
       if (response.status == 'success' && Array.isArray(response)) {
         response.forEach((r) => {
           setTimeout(() => {
-            createMessage(r.message, true)
+            createMessage(r.text, true)
             scrollBottom()
           }, 500)
         })
