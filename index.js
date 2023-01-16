@@ -161,7 +161,7 @@ function createChatbotLayout() {
 }
 
 async function getResponse(message) {
-  const response = await fetch(`http://localhost:8080/api/chatbots/response`, {
+  const response = await fetch(`http://localhost:8080/chatbots/response`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
