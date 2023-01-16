@@ -80,6 +80,7 @@ function createChatbotLayout() {
     try {
       const response = await getResponse(message)
       console.log(response)
+       console.log(response.response)
       if (response.status == 'success' && Array.isArray(response.response)) {
         console.log('is array!')
         console.log(response.response)
