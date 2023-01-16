@@ -81,6 +81,8 @@ function createChatbotLayout() {
       const response = await getResponse(message)
       console.log(response)
       if (response.status == 'success' && Array.isArray(response.response)) {
+        console.log('is array!')
+        console.log(response.response)
         response.response.forEach((r) => {
           setTimeout(() => {
             createMessage(r.text, true)
