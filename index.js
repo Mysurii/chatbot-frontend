@@ -81,9 +81,7 @@ function createChatbotLayout() {
       const response = await getResponse(message)
       console.log(response)
        console.log(response.response)
-      if (Array.isArray(response.response)) {
-        console.log('is array!')
-
+      if (response && Array.isArray(response.response)) {
         response.response.forEach((r) => {
           console.log(r)
           console.log(r.text)
