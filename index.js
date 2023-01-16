@@ -83,8 +83,10 @@ function createChatbotLayout() {
        console.log(response.response)
       if (response.status == 'success' && Array.isArray(response.response)) {
         console.log('is array!')
-        console.log(response.response)
+     
         response.response.forEach((r) => {
+          console.log(r)
+          console.log(r.text)
           setTimeout(() => {
             createMessage(r.text, true)
             scrollBottom()
