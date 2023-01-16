@@ -80,11 +80,16 @@ function createChatbotLayout() {
     try {
       const response = await getResponse(message)
       console.log(response)
-      if (response.status == 'success')
-        setTimeout(() => {
-          createMessage(response.message, true)
-          scrollBottom()
-        }, 500)
+      if (response.status == 'success' && Array.isArray(response)) {
+        response.forEach((r) => {
+          setTimeout(() => {
+            createMessage(r.message, true)
+            scrollBottom()
+          }, 500)
+        })
+      }
+
+       
     } catch (err) {
       setTimeout(() => {
         createMessage('Something went wrong with the server. Please try again later.', true)
