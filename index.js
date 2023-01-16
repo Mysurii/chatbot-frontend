@@ -79,6 +79,7 @@ function createChatbotLayout() {
 
     try {
       const response = await getResponse(message)
+      console.log(response)
       if (response.status == 'success')
         setTimeout(() => {
           createMessage(response.message, true)
