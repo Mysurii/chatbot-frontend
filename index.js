@@ -83,6 +83,11 @@ function createChatbotLayout() {
        console.log(response.response)
       if (response.status == 'success' && Array.isArray(response.response)) {
         console.log('is array!')
+
+        response.forEach((r) => {
+          console.log('in response')
+          console.log(r)
+        })
      
         response.response.forEach((r) => {
           console.log(r)
