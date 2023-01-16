@@ -80,8 +80,8 @@ function createChatbotLayout() {
     try {
       const response = await getResponse(message)
       console.log(response)
-      if (response.status == 'success' && Array.isArray(response)) {
-        response.forEach((r) => {
+      if (response.status == 'success' && Array.isArray(response.response)) {
+        response.response.forEach((r) => {
           setTimeout(() => {
             createMessage(r.text, true)
             scrollBottom()
