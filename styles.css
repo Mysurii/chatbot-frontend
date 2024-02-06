@@ -1,19 +1,18 @@
 
 .chatbot__header {
-  border-top-left-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  height: 50px;
-  padding-left: 30px;
-  background-color: #00d1b2;
-
+  display: flex; 
+  padding: 1rem; 
+  justify-content: space-between; 
+  align-items: center; 
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem; 
+  border-bottom-width: 1px; 
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 .chatbot__header__close {
   color:white;
   cursor: pointer;
-  margin-right: 30px;
   font-size: 1.4rem;
   transition: all 0.3 ease;
 }
@@ -58,22 +57,24 @@
   max-width: 70%;
 }
 .chatbot__self__bubble {
-  font-size: 0.9rem;
   min-width: 50px;
   color: #fff;
   background-color: #00d1b2;
   padding: 10px 15px 10px 10px;
   text-align: right;
-  border-radius: 5px 5px 0 5px;
+  border-radius: .75rem .75rem 0 .75rem ;
+  font-size: 0.875rem/* 14px */;
+  line-height: 1.25rem/* 20px */;
 }
 .chatbot__bot__bubble {  
-  font-size: 0.9rem;
+  font-size: 0.875rem/* 14px */;
+  line-height: 1.25rem/* 20px */;
   min-width: 50px;
   color: black;
   background-color: lightgray;
   padding: 10px 15px 10px 10px;
   text-align: left;
-  border-radius: 5px 5px 5px 0;
+  border-radius: .75rem .75rem .75rem 0;
 }
 .chatbot__time {
   color: gray ;
@@ -100,8 +101,7 @@
   border-radius: 0.5rem;
   box-sizing: border-box;
   color: #111827;
-  font-family: 'Inter var', ui-sans-serif, system-ui, -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family:  sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1.25rem;
@@ -164,7 +164,7 @@
   background-color: transparent;
 }
 .chatbot__send__button:hover {
-    color: #00d1b2;
+    color: black;
     transform: scale(1.05);
 }
 .chatbot__container {
@@ -180,4 +180,17 @@
   -moz-box-shadow: 0 0 3px #ccc;
   -webkit-box-shadow: 0 0 3px #ccc;
   box-shadow: 0 0 3px #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .chatbot__container {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+  }
+  .chatbot__header {
+    border-radius: 0;
+
+  }
 }

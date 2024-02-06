@@ -1,16 +1,11 @@
 const token = document.currentScript.getAttribute('data-token')
-const chatbotName = document.currentScript.getAttribute('data-name')
-const nameColor = document.currentScript.getAttribute('data-name-color')
-const closeColor = document.currentScript.getAttribute('data-close')
-const headerColor = document.currentScript.getAttribute('data-header')
-const selfBubbleColor = document.currentScript.getAttribute('data-bubble-user')
-const botBubble = document.currentScript.getAttribute('data-bubble-bot')
-const sendButtonColor = document.currentScript.getAttribute('data-send-button')
-const textUser = document.currentScript.getAttribute('data-text-user')
-const textBot = document.currentScript.getAttribute('data-text-bot')
-const avatarURL = document.currentScript.getAttribute('data-avatar')
+const name = document.currentScript.getAttribute('data-name')
+const textColor = document.currentScript.getAttribute('data-text-color')
+const backgroundColor = document.currentScript.getAttribute('data-background-color')
 
-const STANDARD_AVATAR_URL = 'https://images-platform.99static.com/jwnEu5C8vt1HATQ5ikjw_zxN3Lw=/0x1:1563x1564/500x500/top/smart/99designs-contests-attachments/95/95977/attachment_95977640'
+const STANDARD_AVATAR_URL = 'https://cdn-icons-png.freepik.com/256/6231/6231553.png'
+
+const messages = []
 
 function createChatbotLayout() {
   // chat box
@@ -22,12 +17,12 @@ function createChatbotLayout() {
   const header = document.createElement('div')
   header.classList.add('chatbot__header')
 
-  header.style.background = headerColor
+  header.style.background = backgroundColor
 
   const closeBtn = document.createElement('div')
   closeBtn.innerHTML = '&#10006'
   closeBtn.classList.add('chatbot__header__close')
-  closeBtn.style.color = closeColor
+  closeBtn.style.color = textColor
 
   closeBtn.addEventListener('click', () => {
     avatar.style.opacity = 1
@@ -36,8 +31,8 @@ function createChatbotLayout() {
 
   const chatbotNameSpan = document.createElement('span')
   chatbotNameSpan.classList.add('chatbot__header__description')
-  chatbotNameSpan.innerHTML = chatbotName || 'Chatbot'
-  chatbotNameSpan.style.color = nameColor
+  chatbotNameSpan.innerHTML = name || 'Alpine'
+  chatbotNameSpan.style.color = textColor
 
   header.appendChild(chatbotNameSpan)
   header.appendChild(closeBtn)
@@ -65,7 +60,7 @@ function createChatbotLayout() {
   sendButton.type = 'submit'
   sendButton.innerText = 'Send'
   sendButton.classList.add('chatbot__send__button')
-  sendButton.style.color = `${closeColor} !important`
+  sendButton.style.color = `${textColor} !important`
 
   sendButton.addEventListener('click', async (e) => {
     e.preventDefault()
@@ -80,7 +75,7 @@ function createChatbotLayout() {
     try {
       const response = await getResponse(message)
       console.log(response)
-       console.log(response.response)
+      console.log(response.response)
       if (response && Array.isArray(response.response)) {
         response.response.forEach((r) => {
           console.log(r)
@@ -91,11 +86,10 @@ function createChatbotLayout() {
           }, 500)
         })
       }
-
-       
     } catch (err) {
+      console.log(err)
       setTimeout(() => {
-        createMessage('Something went wrong with the server. Please try again later.', true)
+        createMessage('The server is currently offline. Please try again later.', true)
         scrollBottom()
       }, 500)
     }
@@ -111,7 +105,7 @@ function createChatbotLayout() {
   const avatar = document.createElement('div')
   avatar.classList.add('avatar__container')
   const avatarImg = document.createElement('img')
-  avatarImg.src = avatarURL || STANDARD_AVATAR_URL
+  avatarImg.src = STANDARD_AVATAR_URL
   avatarImg.classList.add('chatbot__avatar')
   avatar.appendChild(avatarImg)
 
@@ -140,15 +134,13 @@ function createChatbotLayout() {
     const bubble = document.createElement('div')
     if (is_bot) {
       bubble.classList.add('chatbot__bot__bubble')
-      if (botBubble && textBot) {
-        bubble.style.background = botBubble
-        bubble.style.color = textBot
-      }
+      bubble.style.background = '#e2e8f0'
+      bubble.style.color = '#000'
     } else {
       bubble.classList.add('chatbot__self__bubble')
-      if (selfBubbleColor && textUser) {
-        bubble.style.background = selfBubbleColor
-        bubble.style.color = textUser
+      if (textColor) {
+        bubble.style.background = backgroundColor
+        bubble.style.color = textColor
       }
     }
 
@@ -170,16 +162,18 @@ function createChatbotLayout() {
 }
 
 async function getResponse(message) {
-  const response = await fetch(`http://localhost:8080/chatbots/response`, {
+  messages.push({ isUserMessage: true, text: message })
+  const response = await fetch(`http://localhost:3000/api/chatbot/message`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `$Bearer ${token}`,
     },
-    body: JSON.stringify({ message }),
+    body: JSON.stringify({ messages, token }),
   })
   const res = await response.json()
 
+  messages.push({ isUserMessage: false, text: res })
   return res
 }
 
